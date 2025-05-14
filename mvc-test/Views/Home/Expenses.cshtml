@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Expense>
+
+@{
+    ViewData["Title"] = "Expenses";
+}
+
+<h1>Expenses</h1>
+<div class="container">
+   <div class="row">
+       <div class="col">
+            <h4>Total: @ViewBag.Total</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var expense in Model)
+                    {
+                        <tr>
+                            <td>@expense.Description</td>
+                            <td>@expense.Price.ToString("C")</td>
+                            <td>
+                                <a asp-action="CreateEditExpense" asp-route-id="@expense.Id" class="btn btn-sm btn-primary">Create/Edit</a>
+                                <a asp-action="DeleteExpense" asp-route-id="@expense.Id" class="btn btn-sm btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+       </div>
+   </div>
+</div>
