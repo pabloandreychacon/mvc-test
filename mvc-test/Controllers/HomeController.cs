@@ -22,6 +22,7 @@ namespace mvc_test.Controllers
             return View();
         }
 
+        /* main page for expenses */
         public async Task<IActionResult> Expenses()
         {
             var expenses = await _expensesDataAccess.GetAllExpensesAsync();
@@ -30,6 +31,7 @@ namespace mvc_test.Controllers
             return View(expenses);
         }
 
+        /* edit a selected expense using id */
         public async Task<IActionResult> CreateEditExpense(int? id)
         {
             if (id != null)
@@ -40,20 +42,21 @@ namespace mvc_test.Controllers
             return View();
         }
 
+        /* called by CreateEditExpense page */
         public async Task<IActionResult> CreateEditExpenseForm(Expense model)
         {
-            if (model.Id == 0)
+            if (model.Id == 0) // new
             {
                 _ = await _expensesDataAccess.CreateExpenseAsync(model);
             }
-            else
+            else // exists
             {
                 _ = await _expensesDataAccess.UpdateExpenseAsync(model);
             }
             return RedirectToAction("Expenses");
         }
 
-
+        /* delete using expense id */
         public async Task<IActionResult> DeleteExpense(int id)
         {
             var deleted = await _expensesDataAccess.DeleteExpenseAsync(id);
